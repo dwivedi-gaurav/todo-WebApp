@@ -10,7 +10,7 @@
         <h1 style="font-size:24px;font-weight:300;letter-spacing:-0.5px">Register</h1>
       </div>
     </div>
-
+    <% include ./partials/messages %>
     <div class="row" style="margin-top:4%;display:none" id="alertWrapper">
       <div class="alert alert-danger col-md-12" role="alert" style="text-align:center" id="alertBox">
 
@@ -23,19 +23,19 @@
             <form method="post" action="/users/register">
               <div class="form-group">
                 <label for="name">Name</label> <span style="color:red">*</span>
-                <input type="text" class="form-control" id="name" name="name" >
+                <input type="text" class="form-control" id="name" name="name" value="<%= typeof name !='undefined' ? name : '' %>"/>
               </div>
               <div class="form-group">
                 <label for="email">Email</label> <span style="color:red">*</span>
-                <input type="text" class="form-control" id="email" name="email" >
+                <input type="text" class="form-control" id="email" name="email" value="<%= typeof email !='undefined' ? email : '' %>"/>
               </div>
               <div class="form-group">
                 <label for="password">Password</label> <span style="color:red">*</span>
-                <input type="password" class="form-control" id="password" name="password">
+                <input type="password" class="form-control" id="password" name="password" value="<%= typeof password !='undefined' ? password : '' %>">
               </div>
               <div class="form-group">
                 <label for="password2">Confirm Password</label> <span style="color:red">*</span>
-                <input type="password" class="form-control" id="password2" name="password2">
+                <input type="password" class="form-control" id="password2" name="password2" value="<%= typeof password2 !='undefined' ? password2 : '' %>">
               </div>
               <button type="submit" class="btn btn-primary btn-block">Register</button>
             </form>
