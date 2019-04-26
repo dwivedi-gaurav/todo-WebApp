@@ -6,8 +6,12 @@ var ejs=require('ejs');
 var expressLayout=require('express-ejs-layouts');
 var flash=require('connect-flash');
 var session=require('express-session');
+var passport=require('passport');
 
 var app=express();
+
+//Passport Config
+require('./passport/passport-local')(passport);
 
 //MongoDB
 require('./db/mongoose');
@@ -19,12 +23,18 @@ app.use(session({
   saveUninitialized: true
 }));
 
+//Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 //Connect-flash
 app.use(flash());
 
 //Global Vars
 app.use((req,res,next)=>{
   res.locals.success_msg=req.flash('success_msg');
+  res.locals.error=req.flash('error');
+  res.locals.error_msg=req.flash('error_msg');
   next();
 });
 

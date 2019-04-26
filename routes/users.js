@@ -3,19 +3,21 @@ var router=express.Router();
 var {User}=require('../models/User');
 var validator = require("email-validator");
 var bcrypt=require('bcryptjs');
+var passport=require('passport');
+var {ensureUnAuthenticated,ensureAuthenticated}=require('../middleware/auth');
 
 //Login page
-router.get('/login',(req,res)=>{
+router.get('/login',ensureUnAuthenticated,(req,res)=>{
   res.render('login');
 });
 
 //Register page
-router.get('/register',(req,res)=>{
+router.get('/register',ensureUnAuthenticated,(req,res)=>{
   res.render('register');
 });
 
 //Register handle
-router.post('/register',(req,res)=>{
+router.post('/register',ensureUnAuthenticated,(req,res)=>{
   var {name,email,password,password2}=req.body;
   var errors=[];
   if(!name || !email || !password || !password2){
@@ -58,6 +60,19 @@ router.post('/register',(req,res)=>{
 });
 
 //Login handle
-router.post('/users/login',)
+router.post('/login',ensureUnAuthenticated,(req,res,next)=>{
+  passport.authenticate('local',{
+    successRedirect:'/todos/home',
+    failureRedirect:'/users/login',
+    failureFlash:true
+  })(req,res,next);
+});
+
+//Logout handle
+router.get('/logout',ensureAuthenticated,(req,res)=>{
+  req.logout();
+  req.flash('success_msg','You are logged out.');
+  res.redirect('/users/login');
+});
 
 module.exports=router;
