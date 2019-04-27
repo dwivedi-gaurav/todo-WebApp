@@ -50,7 +50,7 @@ router.post('/register',ensureUnAuthenticated,(req,res)=>{
               }).catch((e)=>{
                 errors.push({msg:'Database error! Please try again.'});
                 console.log(e.message);
-                res.redirect('/users/register');
+                res.render('register',{errors,name,email,password,password2});
               });
           });
         });
