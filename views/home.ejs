@@ -1,6 +1,88 @@
 <div class="row" style="margin-top:5%">
   <div class="col-md-4">
+    <h1 style="font-size:24px;font-weight:400;letter-spacing:-0.5px">Your Todos</h1>
+    <table class="table table-striped table-sm">
+      <tbody>
+        <% var i=1 %>
+        <% todos[0].forEach((todo)=>{ %>
+          <tr>
+            <th scope="row"><%= i++ %></th>
+            <td>
+              <%= todo.todo %>
+              <p style="font-size:12px">Created On: <%= ObjectID(todo.id).getTimestamp().toString().substring(0, 15) %></p>
+            </td>
+            <td>
+              <!-- Button trigger modal -->
+                <a data-toggle="modal" data-target="#updateModal<%= todo.id %>">
+                  <i class="fas fa-edit"></i>
+                </a>
+                  &nbsp &nbsp
+                <a data-toggle="modal" data-target="#deleteModal<%= todo.id %>">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
 
+                <!--Update Modal -->
+                <div class="modal fade" id="updateModal<%= todo.id %>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="updateModalLabel">Update Todo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form method="post" action="/todos/update">
+                          <div class="form-group">
+                            <input type="hidden" class="form-control" id="id" name="id" value="<%= todo.id %>">
+                          </div>
+                          <div class="form-group">
+                            <input type="text" class="form-control" id="todo" name="todo" placeholder="Add Todo" value="<%= todo.todo %>">
+                          </div>
+                          <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="done" name="done">
+                            <label class="form-check-label" for="done">Mark as completed.</label>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                          </div>
+                        </form>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Update Modal -->
+                <!--Delete Modal -->
+                <div class="modal fade" id="deleteModal<%= todo.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Delete Todo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Please confirm, you want to delete this todo.
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                        <a class="btn btn-danger btn-sm" href="/todos/delete/<%= todo.id %>" role="button">Link</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Delete Modal -->
+            </td>
+          </tr>
+        <% })%>
+        <% if(todos[0].length==0){ %>
+          <p>No Todos yet.</p>
+        <%}%>
+      </tbody>
+    </table>
   </div>
   <div class="col-md-4">
     <div class="row">
@@ -40,6 +122,51 @@
     </div>
   </div>
   <div class="col-md-4">
+    <h1 style="font-size:24px;font-weight:400;letter-spacing:-0.5px">Completed Todos</h1>
+    <table class="table table-striped table-sm">
+      <tbody>
+        <% var i=1 %>
+        <% todos[1].forEach((todo)=>{ %>
+          <tr>
+            <th scope="row"><%= i++ %></th>
+            <td>
+              <%= todo.todo %>
+              <p style="font-size:12px">Created On: <%= ObjectID(todo.id).getTimestamp().toString().substring(0, 15) %></p>
+            </td>
+            <td>
+              <!-- Button trigger modal -->
+                <a data-toggle="modal" data-target="#deleteModal<%= todo.id %>">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
 
+                <!--Delete Modal -->
+                <div class="modal fade" id="deleteModal<%= todo.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Delete Todo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Please confirm, you want to delete this todo.
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                        <a class="btn btn-danger btn-sm" href="/todos/delete/<%= todo.id %>" role="button">Link</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Delete Modal -->
+            </td>
+          </tr>
+        <% })%>
+        <% if(todos[1].length==0){ %>
+          <p>No Todos yet.</p>
+        <%}%>
+      </tbody>
+    </table>
   </div>
 </div>
