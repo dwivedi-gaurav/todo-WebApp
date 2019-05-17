@@ -4,7 +4,7 @@ module.exports={
       return next();
     }else{
       req.flash('error_msg','Please login to view this page.');
-      res.redirect('/users/login');
+      res.redirect('/');
     }
   },
   ensureUnAuthenticated:(req,res,next)=>{

@@ -2,6 +2,10 @@ var mongoose=require('mongoose');
 var validator=require('validator');
 
 var UserSchema=new mongoose.Schema({
+  googleId:{
+    type:String,
+    trim:true
+  },
   name:{
     type:String,
     required:true,
@@ -19,7 +23,6 @@ var UserSchema=new mongoose.Schema({
   },
   password:{
     type:String,
-    required:true,
     minlength:6
   }
 });

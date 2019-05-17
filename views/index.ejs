@@ -11,17 +11,14 @@
       </div>
     </div>
 
-    <div class="row" style="margin-top:4%;display:none" id="alertWrapper">
-      <div class="alert alert-danger col-md-12" role="alert" style="text-align:center" id="alertBox">
-
-      </div>
-    </div>
+    <% include ./partials/messages %>
     <div class="row" style="margin-top:4%">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body" style="text-align:center">
             <a class="btn btn-primary btn-block" href="/users/login" role="button">Login</a>
             <a class="btn btn-success btn-block" href="/users/register" role="button">Register</a>
+            <a href="/users/login/google"><img src="/images/google.png" alt="Google Logo" style="margin-top:8px"/></a>
           </div>
         </div>
       </div>

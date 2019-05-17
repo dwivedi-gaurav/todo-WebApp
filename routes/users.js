@@ -11,6 +11,16 @@ router.get('/login',ensureUnAuthenticated,(req,res)=>{
   res.render('login');
 });
 
+//login google
+router.get('/login/google',passport.authenticate('google',{
+  scope:['profile','email']
+}));
+
+//Google callback route
+router.get('/login/google/redirect',passport.authenticate('google'),(req,res)=>{
+  res.redirect('/todos/home');
+});
+
 //Register page
 router.get('/register',ensureUnAuthenticated,(req,res)=>{
   res.render('register');
@@ -72,7 +82,7 @@ router.post('/login',ensureUnAuthenticated,(req,res,next)=>{
 router.get('/logout',ensureAuthenticated,(req,res)=>{
   req.logout();
   req.flash('success_msg','You are logged out.');
-  res.redirect('/users/login');
+  res.redirect('/');
 });
 
 module.exports=router;

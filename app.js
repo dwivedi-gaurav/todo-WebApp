@@ -1,5 +1,4 @@
-var i=1;
-console.log('Entering app.js........',i++);
+require('./config/config');
 
 var express=require('express');
 var ejs=require('ejs');
@@ -11,7 +10,7 @@ var passport=require('passport');
 var app=express();
 
 //Passport Config
-require('./passport/passport-local')(passport);
+require('./passport/passport-setup')(passport);
 
 //MongoDB
 require('./db/mongoose');
@@ -54,7 +53,7 @@ app.use('/',require('./routes/index'));
 app.use('/users',require('./routes/users'));
 app.use('/todos',require('./routes/todos'));
 
-const port=process.env.PORT||3000;
+const port=process.env.PORT;
 
 app.listen(port,()=>{
   console.log(`Listening to port ${port}`);

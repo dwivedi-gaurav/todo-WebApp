@@ -1,3 +1,5 @@
 node_modules/
 public/bootstrap/
 public/images/
+config/config.json
+config/keys.js
